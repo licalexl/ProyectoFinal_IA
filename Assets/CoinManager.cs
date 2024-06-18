@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;  // Usar esta línea si usas TextMeshPro
-using UnityEngine.SceneManagement; // Importar el espacio de nombres necesario
+using TMPro;  
+using UnityEngine.SceneManagement; 
 
 
 public class CoinManager : MonoBehaviour
@@ -23,6 +23,8 @@ public class CoinManager : MonoBehaviour
         GameObject[] coins = GameObject.FindGameObjectsWithTag("Moneda");
         totalCoins = coins.Length;
         UpdateCoinText();
+        Time.timeScale = 1;
+
     }
 
     void OnTriggerEnter(Collider other)
@@ -51,6 +53,9 @@ public class CoinManager : MonoBehaviour
         {
             if (objectToActivate != null)
             {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                Time.timeScale = 0;
                 objectToActivate.SetActive(true);
             }
         }
@@ -63,11 +68,16 @@ public class CoinManager : MonoBehaviour
 
     public void RecargarEscena() 
     {
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Time.timeScale = 1;
+     
+
     }
 
     public void CambiarDeEscena()
     {       
-            SceneManager.LoadScene("MainMenu");       
+            SceneManager.LoadScene("MainMenu");
+            Time.timeScale = 1;
     }
 }

@@ -15,7 +15,7 @@ public class Dijkstra
         foreach (var node in Graph.nodes)
         {
             if (node != startNode)
-                dist[node] = Mathf.Infinity;
+                dist[node] = Mathf.Infinity; // inicializar todas las distancias a infinito (excepto el nodo de inicio)
             unvisited.Add(node);
         }
 
@@ -25,16 +25,17 @@ public class Dijkstra
             Node current = unvisited[0];
             unvisited.Remove(current);
 
-            if (current == targetNode)
-                break;
+            if (current == targetNode) // si llegamos al nodo destino, salimos del bucle
+           
+            break;
 
             foreach (Edge edge in current.edges)
             {
                 float alt = dist[current] + edge.cost;
                 if (alt < dist[edge.to])
                 {
-                    dist[edge.to] = alt;
-                    prev[edge.to] = current;
+                    dist[edge.to] = alt; // actualizar la distancia mínima conocida
+                    prev[edge.to] = current; // actualizar el nodo previo
                 }
             }
         }
@@ -44,11 +45,11 @@ public class Dijkstra
 
         while (temp != null)
         {
-            path.Add(temp);
+            path.Add(temp); // construir el camino trazando desde el nodo destino hasta el nodo de inicio
             temp = prev[temp];
         }
 
-        path.Reverse();
+        path.Reverse();// invertir el camino para obtener la secuencia correcta del nodo de inicio al nodo destino
         return path;
     }
 }
